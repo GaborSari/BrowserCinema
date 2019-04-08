@@ -10,10 +10,20 @@ const APIKEY = '0a947ed34cd9d8951d42047a298a1eb6';
 })
 export class MovieService {
 
-    private _settings = undefined;
     public loaded = new BehaviorSubject(false);
-    constructor(private httpClient: HttpClient) {
+    public genres = Array<any>();
 
+    constructor(private httpClient: HttpClient) {
+        let x = this.httpClient.get('https://api.themoviedb.org/3/genre/movie/list?api_key=' + APIKEY).subscribe((genres: any) => {
+            if (genres.genres) {
+                this.loaded.next(true);
+                for (let genre of genres.genres) {
+                    this.genres[genre.id] = genre.name;
+                }
+            }
+        }, () => {
+            console.log("ERROR");
+        });
     }
 
     getPopularMovies(year: number, page: number): BehaviorSubject<Array<Movie>> {
@@ -24,7 +34,9 @@ export class MovieService {
                     if (json.results) {
                         let movies = new Array<Movie>();
                         for (let movie of json.results) {
-                            movies.push(Object.assign(new Movie(), movie));
+                            let newMovie:Movie = (Object.assign(new Movie(), movie));
+                            newMovie.genres = newMovie.genre_ids.map(g=> this.genres[g]);
+                            movies.push(newMovie);
                         }
                         ret.next(movies);
                     }

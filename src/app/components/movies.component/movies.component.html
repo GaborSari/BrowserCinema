@@ -1,31 +1,32 @@
-<div class="ui floated four cards" *ngIf="loaded && movies.length">
+<div [class]="cardClass" *ngIf="loaded || movies.length">
 
     <div class="card" *ngFor="let movie of movies">
         <div class="image">
-            <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path">
+            <img *ngIf="movie.poster_path" [src]="'https://image.tmdb.org/t/p/w300'+movie.poster_path">
+            <div *ngIf="!movie.poster_path" style="min-height: 40vh;" class="ui placeholder">
+                <div class="square image"></div>
+            </div>
         </div>
+
         <div class="content">
             <div class="header">{{movie.title}}</div>
-            <div class="meta">
-                <a>Friends</a>
+            <div class="unclickable unselectable meta">
+                <a>{{movie.genres}}</a>
             </div>
             <div class="description">
-                Matthew is an interior designer living in New York.
+                {{movie.overview}}
             </div>
         </div>
         <div class="extra content">
             <span class="right floated">
-                Joined in 2013
-            </span>
-            <span>
-                <i class="user icon"></i>
-                75 Friends
+                {{movie.release_date}}
             </span>
         </div>
     </div>
 
+
 </div>
 
-<div class="ui active dimmer" *ngIf="!loaded && !movies.length">
+<div class="ui active dimmer" *ngIf="!loaded || !movies.length">
     <div class="ui loader"></div>
 </div>

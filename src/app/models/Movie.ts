@@ -2,6 +2,7 @@ export class Movie{
     adult:boolean = false;
     backdrop_path:string = "";
     genre_ids:Array<number> = new Array<number>();
+    genres:Array<string> = new Array<string>();
     id:number = -1;
     original_language:string = "en";
     original_title:string = "";
@@ -13,4 +14,5 @@ export class Movie{
     video:string = "";
     vote_average:number = -1;
     vote_count:number = -1;
+
 }
