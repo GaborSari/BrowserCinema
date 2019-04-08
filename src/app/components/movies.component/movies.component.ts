@@ -9,6 +9,7 @@ export class MoviesComponent {
   public movies: Array<Movie> = new Array<Movie>();
   private pageIndex = 1;
   private year = new Date().getFullYear();
+  public loaded = false;
   constructor(private movieService: MovieService) {
     this.loadMovies(this.year,this.pageIndex);
   }
@@ -24,11 +25,13 @@ export class MoviesComponent {
   }
 
   loadMovies(year:number,pageIndex:number){
+    this.loaded = false;
     this.movieService.getPopularMovies(year,pageIndex).subscribe(movies => {
       if (movies.length > 0) {
         for (let movie of movies) {
           this.movies.push(movie);
         }
+        this.loaded = true;
       }
     });
   }

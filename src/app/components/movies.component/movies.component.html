@@ -1,4 +1,4 @@
-<div class="ui floated four cards">
+<div class="ui floated four cards" *ngIf="loaded && movies.length">
 
     <div class="card" *ngFor="let movie of movies">
         <div class="image">
@@ -24,4 +24,8 @@
         </div>
     </div>
 
+</div>
+
+<div class="ui active dimmer" *ngIf="!loaded && !movies.length">
+    <div class="ui loader"></div>
 </div>
