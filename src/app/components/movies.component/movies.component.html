@@ -1,0 +1,27 @@
+<div class="ui floated four cards">
+
+    <div class="card" *ngFor="let movie of movies">
+        <div class="image">
+            <img [src]="'https://image.tmdb.org/t/p/w500'+movie.poster_path">
+        </div>
+        <div class="content">
+            <div class="header">{{movie.title}}</div>
+            <div class="meta">
+                <a>Friends</a>
+            </div>
+            <div class="description">
+                Matthew is an interior designer living in New York.
+            </div>
+        </div>
+        <div class="extra content">
+            <span class="right floated">
+                Joined in 2013
+            </span>
+            <span>
+                <i class="user icon"></i>
+                75 Friends
+            </span>
+        </div>
+    </div>
+
+</div>
