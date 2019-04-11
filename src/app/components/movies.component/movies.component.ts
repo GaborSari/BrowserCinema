@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/models/Movie';
 
+
 @Component({
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css']
@@ -17,7 +18,7 @@ export class MoviesComponent {
 
   constructor(private movieService: MovieService) {
     this.loadMovies(this.year, this.pageIndex);
-    if (window.innerWidth < 991) {
+    if (window.innerWidth <= 768) {
       this.cardClass = "ui floated two cards";
     }
   }
@@ -27,10 +28,7 @@ export class MoviesComponent {
     if (this.searchInput != "" || this.pageIndex > 3) return;
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight - 50;
-    console.log(max);
-    console.log(pos);
     if (pos >= max) {
-      console.log("pos");
       this.pageIndex++;
       this.loadMovies(this.year, this.pageIndex);
     }
