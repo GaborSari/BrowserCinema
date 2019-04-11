@@ -14,5 +14,9 @@ export class Movie{
     video:string = "";
     vote_average:number = -1;
     vote_count:number = -1;
+    projectDate:Date = new Date();
 
+    constructor(){
+        this.projectDate = new Date(this.projectDate.setMinutes(this.projectDate.getMinutes() + 5));
+    }
 }

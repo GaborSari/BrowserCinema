@@ -1,10 +1,10 @@
 import { Component, HostListener } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/models/Movie';
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 @Component({
-  templateUrl: './movies.component.html'
+  templateUrl: './movies.component.html',
+  styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent {
 
@@ -13,28 +13,32 @@ export class MoviesComponent {
   private pageIndex = 1;
   private year = new Date().getFullYear();
   public loaded = false;
+  public searchInput = "";
 
   constructor(private movieService: MovieService) {
-    this.loadMovies(this.year,this.pageIndex);
-    if(window.innerWidth < 991){
+    this.loadMovies(this.year, this.pageIndex);
+    if (window.innerWidth < 991) {
       this.cardClass = "ui floated two cards";
     }
   }
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
+    if (this.searchInput != "" || this.pageIndex > 3) return;
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight;
-    if (pos == max) {
+    let max = document.documentElement.scrollHeight - 50;
+    console.log(max);
+    console.log(pos);
+    if (pos >= max) {
+      console.log("pos");
       this.pageIndex++;
-      this.loadMovies(this.year,this.pageIndex);
+      this.loadMovies(this.year, this.pageIndex);
     }
   }
 
-  async loadMovies(year:number,pageIndex:number){
+  loadMovies(year: number, pageIndex: number) {
     this.loaded = false;
-    await delay(500);//fake waiting
-    this.movieService.getPopularMovies(year,pageIndex).subscribe(movies => {
+    this.movieService.getPopularMovies(year, pageIndex).subscribe(movies => {
       if (movies.length > 0) {
         for (let movie of movies) {
           this.movies.push(movie);
@@ -44,4 +48,23 @@ export class MoviesComponent {
     });
   }
 
+  searchMovies() {
+    this.loaded = false;
+    this.movieService.searchMovie(this.searchInput).subscribe(movies => {
+      this.movies = new Array<Movie>();
+      if (movies.length > 0) {
+        for (let movie of movies) {
+          this.movies.push(movie);
+        }
+        this.loaded = true;
+      }
+    });
+  }
+
+  clearSearch(){
+    this.searchInput = "";
+    this.pageIndex = 1;
+    this.movies = new Array<Movie>();
+    this.loadMovies(this.year, this.pageIndex);
+  }
 }

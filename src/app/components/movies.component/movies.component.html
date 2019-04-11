@@ -1,3 +1,24 @@
+<div class="ui grid">
+    <div class="right floated row">
+        <div class="two wide column" *ngIf="searchInput.length" (click)="clearSearch()">
+            <button class="ui inverted secondary icon button">
+                <i class="times icon"></i>
+            </button>
+        </div>
+        <div class="six wide right floated computer only column">
+            <mat-form-field class="full-width">
+                <input matInput type="search" placeholder="Search for movie" (keyup.enter)="searchMovies($event)"
+                    [(ngModel)]="searchInput">
+            </mat-form-field>
+        </div>
+        <div class="fourteen wide right floated mobile only tablet only column">
+            <mat-form-field class="full-width">
+                <input matInput type="search" placeholder="Search for movie" (keyup.enter)="searchMovies($event)"
+                    [(ngModel)]="searchInput">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
 <div [class]="cardClass" *ngIf="loaded || movies.length">
 
     <div class="card" *ngFor="let movie of movies">
