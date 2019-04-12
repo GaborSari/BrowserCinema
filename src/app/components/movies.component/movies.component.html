@@ -37,8 +37,15 @@
             <div class="description">
                 {{movie.overview}}
             </div>
+
         </div>
         <div class="extra content">
+            <div class="ui vertical animated button" (click)="notify(movie)">
+                <div class="hidden content">Watch</div>
+                <div class="visible content">
+                    <i class="play icon"></i>
+                </div>
+            </div>
             <span class="right floated">
                 {{movie.release_date}}
             </span>

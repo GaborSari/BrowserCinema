@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/models/Movie';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class MoviesComponent {
   public loaded = false;
   public searchInput = "";
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService,private notificationService:NotificationService) {
     this.loadMovies(this.year, this.pageIndex);
     if (window.innerWidth <= 768) {
       this.cardClass = "ui floated two cards";
@@ -64,5 +65,12 @@ export class MoviesComponent {
     this.pageIndex = 1;
     this.movies = new Array<Movie>();
     this.loadMovies(this.year, this.pageIndex);
+  }
+
+
+  notify(movie:Movie){
+    let notificationOptions:NotificationOptions;
+
+    this.notificationService.add(movie.title);
   }
 }
