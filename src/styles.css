@@ -9,3 +9,26 @@
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
+
+.ui.grid{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.ui.grid .row .column{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.noborder.ui.segment{ 
+    border:0px !important;
+    border-radius: 0px !important;
+}
+
+div.ui.grid:last-child div.row{
+    padding-bottom: 0px !important;
+}
+
+#cdk-overlay-0{
+    margin-bottom: 25px !important;
+}

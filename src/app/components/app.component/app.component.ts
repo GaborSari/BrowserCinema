@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
 
 @Component({
@@ -6,11 +6,18 @@ import { MovieService } from 'src/app/services/movie.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  clientHeight = window.innerHeight;
+  public clientHeight = window.innerHeight;
   public loaded = false;
+  
   constructor(private movieService:MovieService){
     this.movieService.loaded.subscribe(loaded=>{
       this.loaded = loaded;
     });
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+      this.clientHeight = window.innerHeight;
+  }
+  
 }

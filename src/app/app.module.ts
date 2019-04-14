@@ -10,15 +10,18 @@ import { FooterComponent } from './components/footer.component/footer.component'
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input'
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
+import { ProjectionComponent } from './components/projection.component/projection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MoviesComponent,
     HeaderComponent,
     FooterComponent,
+    ProjectionComponent,
+    MoviesComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSnackBarModule,
     FormsModule
   ],
   providers: [],

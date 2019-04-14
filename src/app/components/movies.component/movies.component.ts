@@ -3,7 +3,6 @@ import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/models/Movie';
 import { NotificationService } from 'src/app/services/notification.service';
 
-
 @Component({
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css']
@@ -17,7 +16,7 @@ export class MoviesComponent {
   public loaded = false;
   public searchInput = "";
 
-  constructor(private movieService: MovieService,private notificationService:NotificationService) {
+  constructor(private movieService: MovieService, private notificationService: NotificationService) {
     this.loadMovies(this.year, this.pageIndex);
     if (window.innerWidth <= 768) {
       this.cardClass = "ui floated two cards";
@@ -26,7 +25,7 @@ export class MoviesComponent {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll() {
-    if (this.searchInput != "" || this.pageIndex > 3) return;
+    if (this.searchInput != "") return;
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight - 50;
     if (pos >= max) {
@@ -60,7 +59,7 @@ export class MoviesComponent {
     });
   }
 
-  clearSearch(){
+  clearSearch() {
     this.searchInput = "";
     this.pageIndex = 1;
     this.movies = new Array<Movie>();
@@ -68,9 +67,29 @@ export class MoviesComponent {
   }
 
 
-  notify(movie:Movie){
-    let notificationOptions:NotificationOptions;
+  startCountDown(movie: Movie) {
+    movie.startCountDown(1).subscribe(action => {
+      if (action) {
+        this.notificationService.add(movie);
+      }
+    });
+  }
 
-    this.notificationService.add(movie.title);
+
+
+
+  pad(n, z = 0) {
+    z = z || 2;
+    return ('00' + n).slice(-z);
+  }
+
+  private msToTime(s) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+    return this.pad(hrs) + ':' + this.pad(mins) + ':' + this.pad(secs);
   }
 }

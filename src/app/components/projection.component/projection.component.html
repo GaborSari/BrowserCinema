@@ -1,0 +1,8 @@
+<div [style.height]="clientHeight-100 + 'px'">
+    <iframe id="iframe" *ngIf="loaded"
+        [src]="videoSrc">
+    </iframe>
+
+    <div *ngIf="!loaded" class="ui active centered inline loader"></div>
+
+</div>
