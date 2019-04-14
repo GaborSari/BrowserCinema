@@ -10,7 +10,7 @@
         <div class="six wide right floated computer only column">
             <mat-form-field class="full-width">
                 <input matInput placeholder="Search for movie"
-                    (keyup.enter)="searchMovies($event)"
+                    (keyup.enter)="searchMovies()"
                     [(ngModel)]="searchInput">
             </mat-form-field>
         </div>
@@ -18,7 +18,7 @@
             column">
             <mat-form-field class="full-width">
                 <input matInput placeholder="Search for movie"
-                    (keyup.enter)="searchMovies($event)"
+                    (keyup.enter)="searchMovies()"
                     [(ngModel)]="searchInput">
             </mat-form-field>
         </div>

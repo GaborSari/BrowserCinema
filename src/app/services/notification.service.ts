@@ -12,11 +12,11 @@ export class NotificationService {
 
 
     constructor(private snackBar: MatSnackBar) {
+
+        this.requestPermission();
+
         this.permission = this.isSupported() ? 'default' : 'denied';
 
-        if (this.permission == 'denied') {
-            this.requestPermission();
-        }
 
     }
 
@@ -38,7 +38,7 @@ export class NotificationService {
 
 
         try {
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || this.permission == 'denied') {
                 let snackBarRef = this.snackBar.open(movie.title + " is started!", 'Take a seat!', {
                     duration: 3000
                 });
