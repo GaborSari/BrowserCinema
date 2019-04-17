@@ -3,6 +3,11 @@
 .unclickable{
     pointer-events: none;
 }
+
+.clickable{
+    cursor: pointer;
+}
+
 .unselectable{
     -webkit-user-select: none; /* Safari */        
     -moz-user-select: none; /* Firefox */

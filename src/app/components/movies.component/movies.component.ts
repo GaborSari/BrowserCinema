@@ -15,11 +15,13 @@ export class MoviesComponent {
   private year = new Date().getFullYear();
   public loaded = false;
   public searchInput = "";
+  public descMaxLength = 350;
 
   constructor(private movieService: MovieService, private notificationService: NotificationService) {
     this.loadMovies(this.year, this.pageIndex);
     if (window.innerWidth <= 768) {
       this.cardClass = "ui floated two cards";
+      this.descMaxLength = 140;
     }
   }
 
@@ -27,9 +29,10 @@ export class MoviesComponent {
   onWindowScroll() {
     if (this.searchInput != "") return;
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight - 50;
+    let max = document.documentElement.scrollHeight;
     if (pos >= max) {
       this.pageIndex++;
+      console.log(this.pageIndex);
       this.loadMovies(this.year, this.pageIndex);
     }
   }
@@ -76,9 +79,11 @@ export class MoviesComponent {
   }
 
 
+  showMoreOverview(movie:Movie){
+    movie.showMoreOverview();
+  }
 
-
-  pad(n, z = 0) {
+  private pad(n, z = 0) {
     z = z || 2;
     return ('00' + n).slice(-z);
   }

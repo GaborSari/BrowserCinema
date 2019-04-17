@@ -43,7 +43,7 @@
                 <a>{{movie.genres}}</a>
             </div>
             <div class="description">
-                {{movie.overview}}
+               {{movie._overview}} <a *ngIf="movie.fullOverview.length != movie._overview.length" class="clickable unselectable" (click)="showMoreOverview(movie)">[More]</a>
             </div>
 
         </div>

@@ -8,7 +8,8 @@ export class Movie {
     id: number = -1;
     original_language: string = "en";
     original_title: string = "";
-    overview: string = "";
+    fullOverview: string = "";
+    _overview: string = "";
     popularity: number = -1;
     poster_path: string = "";
     release_date: Date = new Date();
@@ -22,7 +23,14 @@ export class Movie {
     timer = undefined;
 
     constructor() {
+    }
 
+    set overview(str:string){
+        this.fullOverview = str;
+        this._overview = str;
+        if(this.fullOverview.length > 120){
+            this._overview = this.fullOverview.slice(0,120) + "...";
+        }
     }
 
     startCountDown(min: number):BehaviorSubject<Boolean> {
@@ -41,7 +49,9 @@ export class Movie {
         return ret;
     }
 
-
+    showMoreOverview(){
+        this._overview  = this.fullOverview;
+    }
 
 
 }
